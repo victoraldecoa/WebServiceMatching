@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+
+# NetBeans specific #
+/WSMatchMaking/nbproject/private/
+/WSMatchMaking/build/
+/WSMatchMaking/nbbuild/
+/WSMatchMaking/dist/
+/WSMatchMaking/nbdist/
+/WSMatchMaking/nbactions.xml
+/WSMatchMaking/nb-configuration.xml
