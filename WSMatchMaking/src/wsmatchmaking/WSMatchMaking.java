@@ -8,20 +8,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.wsdl.BindingOperation;
 import javax.wsdl.Definition;
+import javax.wsdl.Part;
+import javax.wsdl.Port;
+import javax.wsdl.Service;
 import javax.wsdl.WSDLException;
-import javax.wsdl.extensions.ExtensionRegistry;
-import javax.wsdl.xml.WSDLLocator;
+import javax.wsdl.factory.WSDLFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
-import javax.wsdl.xml.WSDLReader;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
@@ -33,95 +33,143 @@ public class WSMatchMaking {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws FileNotFoundException, Exception {
+        try {
+            Scanner scanner = new Scanner(System.in);
 
-        // getting all the WSDL files
-        File folder = new File("src/WSDLs");
-        File[] listOfFiles = folder.listFiles();
+            // getting all the WSDL files
+            File folder = new File("src/WSDLs");
+            File[] listOfFiles = folder.listFiles();
 
-        System.out.println("The available WSDLs are:");
-        for (int i = 0; i < listOfFiles.length; i++) {
+            System.out.println("The available WSDLs are:");
+            for (int i = 0; i < listOfFiles.length; i++) {
 
-            if (listOfFiles[i].isFile()) {
-                String file_name;
-                file_name = listOfFiles[i].getName();
-                System.out.println("    " + i + " - " + file_name);
+                if (listOfFiles[i].isFile()) {
+                    String file_name;
+                    file_name = listOfFiles[i].getName();
+                    System.out.println("    " + i + " - " + file_name);
+                }
             }
-        }
-        System.out.println();
-        System.out.print("Choose the input web service: ");
+            System.out.println();
+            System.out.print("Choose the input web service: ");
 
-        FileInputStream inputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
+            FileInputStream inputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
 
-        System.out.print("Choose the output web service: ");
+            System.out.print("Choose the output web service: ");
 
-        FileInputStream outputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
+            FileInputStream outputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
 
-        System.out.println();
-        System.out.println("1 - : Use EditDistance");
-        System.out.println("2 - : Use WordNet");
-        System.out.print("Choose the method for calculating a matched element score: ");
+            System.out.println();
+            System.out.println("1 - : Use EditDistance");
+            System.out.println("2 - : Use WordNet");
+            System.out.print("Choose the method for calculating a matched element score: ");
 
-        boolean editDistance = false;
-        if (scanner.nextInt() == 1) {
-            editDistance = true;
-        }
+            boolean editDistance = false;
+            if (scanner.nextInt() == 1) {
+                editDistance = true;
+            }
 
-        // TODO use inputWs and outputWs to get the actual descriptions and populate a MatchedWebService
-        // TODO issue #1
-        WSDLReader reader;
+            WSMatching wsmatching = new WSMatching();
+            wsmatching.matchedWebServices = new ArrayList<>();
 
-        WSMatching wsmatching = new WSMatching();
-        wsmatching.matchedWebServices = new ArrayList<>();
+            MatchedWebService mws = new MatchedWebService();
+            mws.matchedOperations = new ArrayList<>();
 
-        MatchedWebService mws = new MatchedWebService();
-        mws.matchedOperations = new ArrayList<>();
+            Definition d_i = WSDLFactory.newInstance().newWSDLReader().readWSDL(null, new InputSource(inputWs));
+            Definition d_o = WSDLFactory.newInstance().newWSDLReader().readWSDL(null, new InputSource(outputWs));
 
-        // TODO here we should have the name for the actual webservices
-        mws.setInputServiceName("something");
-        mws.setOutputServiceName("something2");
+            Map m = d_i.getAllServices();
+            Service s_i = null;
+            for (Object o : m.values()) {
+                s_i = (Service) o;
 
-        // TODO for each operation Oi on WS_I
-        for (int oi = 0; oi < 0; oi++) {
-            // TODO for each operation Oj on WS_O
-            for (int oj = 0; oj < 0; oj++) {
-                MatchedOperation mo = new MatchedOperation();
-                mo.matchedElements = new ArrayList<>();
-                mo.setInputOperationName("getWine");
-                mo.setOutputOperationName("getDrink");
+                mws.setInputServiceName(s_i.getQName().getLocalPart());
+            }
+            if (s_i == null) {
+                throw new Exception("No services found on the input");
+            }
 
-                // TODO for each element on Oi
-                for (int ei = 0; ei < 0; ei++) {
-                    // TODO for each element on Oj
-                    for (int ej = 0; ej < 0; ej++) {
-                        MatchedElement me = new MatchedElement();
-                        me.setInputElement("Country");
-                        me.setOutputElement("Country");
-                        me.setScore(1.0);
-                        mo.matchedElements.add(me);
+            m = d_o.getAllServices();
+            Service s_o = null;
+            for (Object o : m.values()) {
+                s_o = (Service) o;
 
-                        if (editDistance) {
-                            me.calculateScoreUsingEditDistance();
-                        } else {
-                            me.calculateScoreUsingWordNet();
+                mws.setOutputServiceName(s_o.getQName().getLocalPart());
+            }
+
+            if (s_o == null) {
+                throw new Exception("No services found on the output");
+            }
+
+            Port p_i = null;
+            for (Object o : s_i.getPorts().values()) {
+                p_i = (Port) o;
+            }
+
+            if (p_i == null) {
+                throw new Exception("No ports found on the input");
+            }
+
+            Port p_o = null;
+            for (Object o : s_o.getPorts().values()) {
+                p_o = (Port) o;
+            }
+
+            if (p_o == null) {
+                throw new Exception("No ports found on the output");
+            }
+
+            for (Object o1 : p_i.getBinding().getBindingOperations()) {
+                BindingOperation o_i = (BindingOperation) o1;
+                for (Object o2 : p_o.getBinding().getBindingOperations()) {
+                    BindingOperation o_o = (BindingOperation) o2;
+
+                    MatchedOperation mo = new MatchedOperation();
+                    mo.matchedElements = new ArrayList<>();
+                    mo.setInputOperationName(o_i.getName());
+                    mo.setOutputOperationName(o_o.getName());
+
+                    for (Object o3 : o_i.getOperation().getInput().getMessage().getParts().values()) {
+                        Part e_i = (Part)o3;
+                        for (Object o4 : o_o.getOperation().getOutput().getMessage().getParts().values()) {
+                            Part e_o = (Part)o4;
+                            MatchedElement me = new MatchedElement();
+                            me.setInputElement(e_i.getName());
+                            me.setOutputElement(e_o.getName());
+
+                            if (editDistance) {
+                                me.calculateScoreUsingEditDistance();
+                            } else {
+                                me.calculateScoreUsingWordNet();
+                            }
+                            
+                            // if the element doesn't match, then the whole operation doesn't match
+                            if (me.getScore() <= 0.8) {
+                                break;
+                            }
+                            
+                            mo.matchedElements.add(me);
                         }
                     }
+
+                    if (!mo.matchedElements.isEmpty()){
+                        mo.calculateOpScore();
+                        mws.matchedOperations.add(mo);
+                    }
                 }
-
-                mo.calculateOpScore();
-
-                mws.matchedOperations.add(mo);
             }
+
+            if (!mws.matchedOperations.isEmpty()) {
+                mws.calculateWSScore();
+                wsmatching.matchedWebServices.add(mws);
+            }
+
+            createOutput(wsmatching);
+
+            //testOutput();
+        } catch (WSDLException ex) {
+            Logger.getLogger(WSMatchMaking.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-        mws.calculateWSScore();
-        wsmatching.matchedWebServices.add(mws);
-
-        //createOutput(wsmatching);
-
-        testOutput();
     }
 
     private static void createOutput(WSMatching wsm) {
