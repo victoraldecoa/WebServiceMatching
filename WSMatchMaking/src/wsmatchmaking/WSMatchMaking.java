@@ -28,7 +28,7 @@ public class WSMatchMaking {
         Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
-        File folder = new File("WSDLs");
+        File folder = new File("src/WSDLs");
         File[] listOfFiles = folder.listFiles();
 
         System.out.println("The available WSDLs are:");
@@ -109,9 +109,9 @@ public class WSMatchMaking {
         mws.calculateWSScore();
         wsmatching.matchedWebServices.add(mws);
 
-        createOutput(wsmatching);
+        //createOutput(wsmatching);
 
-        //testOutput();
+        testOutput();
     }
 
     private static void createOutput(WSMatching wsm) {
@@ -123,7 +123,7 @@ public class WSMatchMaking {
             m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-            m.marshal(wsm, new File("output.xml"));
+            m.marshal(wsm, new File("src/output.xml"));
 
         } catch (JAXBException ex) {
             Logger.getLogger(WSMatchMaking.class.getName()).log(Level.SEVERE, null, ex);
