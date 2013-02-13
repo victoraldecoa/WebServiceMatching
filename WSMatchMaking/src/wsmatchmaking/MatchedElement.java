@@ -11,7 +11,7 @@ import transition.EditDistance;
 
 /**
  *
- * @author victor
+ * @author victor & alex
  */
 @XmlRootElement(name = "MacthedElement", namespace = "http://www.kth.se/ict/id2208/Matching")
 class MatchedElement {

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author victor
+ * @author victor & alex
  */
 @XmlRootElement(namespace = "http://www.kth.se/ict/id2208/Matching", name = "WSMatching")
 public class WSMatching {

@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 /**
  *
- * @author victor
+ * @author victor & alex
  */
 @XmlRootElement(name = "MacthedOperation", namespace = "http://www.kth.se/ict/id2208/Matching")
 public class MatchedOperation {

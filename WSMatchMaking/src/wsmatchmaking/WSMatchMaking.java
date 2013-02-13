@@ -26,7 +26,7 @@ import org.xml.sax.InputSource;
 
 /**
  *
- * @author victor
+ * @author victor & alex
  */
 public class WSMatchMaking {
 
