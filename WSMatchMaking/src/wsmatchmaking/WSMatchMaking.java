@@ -11,9 +11,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.wsdl.Definition;
+import javax.wsdl.WSDLException;
+import javax.wsdl.extensions.ExtensionRegistry;
+import javax.wsdl.xml.WSDLLocator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import javax.wsdl.xml.WSDLReader;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -61,6 +70,7 @@ public class WSMatchMaking {
 
         // TODO use inputWs and outputWs to get the actual descriptions and populate a MatchedWebService
         // TODO issue #1
+        WSDLReader reader;
 
         WSMatching wsmatching = new WSMatching();
         wsmatching.matchedWebServices = new ArrayList<>();

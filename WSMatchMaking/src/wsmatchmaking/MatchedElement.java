@@ -5,6 +5,7 @@
 package wsmatchmaking;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import transition.EditDistance;
 
 /**
  *
@@ -22,7 +23,7 @@ class MatchedElement {
     }
 
     public void calculateScoreUsingEditDistance() {
-        // TODO issue #2
+        score = EditDistance.getSimilarity(inputElement, outputElement);
     }
 
     public String getInputElement() {
