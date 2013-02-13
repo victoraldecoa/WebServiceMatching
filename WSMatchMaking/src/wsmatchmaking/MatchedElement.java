@@ -5,6 +5,8 @@
 package wsmatchmaking;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import jwsl.SimilarityAssessor;
+import jwsl.WordNotFoundException;
 import transition.EditDistance;
 
 /**
@@ -19,7 +21,17 @@ class MatchedElement {
     private double score;
 
     public void calculateScoreUsingWordNet() {
-        // TODO issue #3
+        SimilarityAssessor sim = new SimilarityAssessor();
+
+        // you can choose the proper metric among the implemented one by specifying its name.
+        String metric = SimilarityAssessor.PIRRO_SECO_METRIC;
+
+        try {
+            score = sim.getSimilarity(outputElement, inputElement, metric);
+        } catch (WordNotFoundException e) {
+            System.out.println("Word not found in WordNet. Using EditDistance instead.");
+            calculateScoreUsingEditDistance();
+        }
     }
 
     public void calculateScoreUsingEditDistance() {

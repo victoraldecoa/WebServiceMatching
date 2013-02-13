@@ -47,6 +47,11 @@ public class MatchedOperation {
     
     public void calculateOpScore() {
         opScore = 0;
+        
+        if (matchedElements.isEmpty()) {
+            return;
+        }
+        
         for (MatchedElement me : matchedElements) {
             opScore += me.getScore();
         }

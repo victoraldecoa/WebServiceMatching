@@ -44,11 +44,11 @@ public class MatchedWebService {
     }
 
     public void calculateWSScore() {
+        wsScore = 0;
         if (matchedOperations.isEmpty()) {
             return;
         }
         
-        wsScore = 0;
         for (MatchedOperation mo : matchedOperations) {
             wsScore += mo.getOpScore();
         }
