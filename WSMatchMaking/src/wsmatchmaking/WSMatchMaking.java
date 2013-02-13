@@ -42,18 +42,78 @@ public class WSMatchMaking {
         }
         System.out.println();
         System.out.print("Choose the input web service: ");
-        
+
         FileInputStream inputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
-        
+
         System.out.print("Choose the output web service: ");
-        
+
         FileInputStream outputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
 
-        // TODO use inputWs and outputWs to get the actual descriptions
-        
-        testOutput();
+        System.out.println();
+        System.out.println("1 - : Use EditDistance");
+        System.out.println("2 - : Use WordNet");
+        System.out.print("Choose the method for calculating a matched element score: ");
+
+        boolean editDistance = false;
+        if (scanner.nextInt() == 1) {
+            editDistance = true;
+        }
+
+        // TODO use inputWs and outputWs to get the actual descriptions and populate a MatchedWebService
+        // TODO issue #1
+
+        WSMatching wsmatching = new WSMatching();
+        wsmatching.matchedWebServices = new ArrayList<>();
+
+        MatchedWebService mws = new MatchedWebService();
+        mws.matchedOperations = new ArrayList<>();
+
+        // TODO here we should have the name for the actual webservices
+        mws.setInputServiceName("something");
+        mws.setOutputServiceName("something2");
+
+        // TODO for each operation Oi on WS_I
+        for (int oi = 0; oi < 0; oi++) {
+            // TODO for each operation Oj on WS_O
+            for (int oj = 0; oj < 0; oj++) {
+                MatchedOperation mo = new MatchedOperation();
+                mo.matchedElements = new ArrayList<>();
+                mo.setInputOperationName("getWine");
+                mo.setOutputOperationName("getDrink");
+
+                // TODO for each element on Oi
+                for (int ei = 0; ei < 0; ei++) {
+                    // TODO for each element on Oj
+                    for (int ej = 0; ej < 0; ej++) {
+                        MatchedElement me = new MatchedElement();
+                        me.setInputElement("Country");
+                        me.setOutputElement("Country");
+                        me.setScore(1.0);
+                        mo.matchedElements.add(me);
+
+                        if (editDistance) {
+                            me.calculateScoreUsingEditDistance();
+                        } else {
+                            me.calculateScoreUsingWordNet();
+                        }
+                    }
+                }
+
+                mo.calculateOpScore();
+
+                mws.matchedOperations.add(mo);
+            }
+        }
+
+
+        mws.calculateWSScore();
+        wsmatching.matchedWebServices.add(mws);
+
+        createOutput(wsmatching);
+
+        //testOutput();
     }
-    
+
     private static void createOutput(WSMatching wsm) {
         JAXBContext context;
         Marshaller m;
@@ -62,7 +122,7 @@ public class WSMatchMaking {
 
             m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
+
             m.marshal(wsm, new File("output.xml"));
 
         } catch (JAXBException ex) {

@@ -17,6 +17,14 @@ class MatchedElement {
     private String inputElement;
     private double score;
 
+    public void calculateScoreUsingWordNet() {
+        // TODO issue #3
+    }
+
+    public void calculateScoreUsingEditDistance() {
+        // TODO issue #2
+    }
+
     public String getInputElement() {
         return inputElement;
     }
