@@ -5,7 +5,10 @@
 package wsmatchmaking;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -21,21 +24,33 @@ public class WSMatchMaking {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
-        String files;
         File folder = new File("WSDLs");
         File[] listOfFiles = folder.listFiles();
 
+        System.out.println("The available WSDLs are:");
         for (int i = 0; i < listOfFiles.length; i++) {
 
             if (listOfFiles[i].isFile()) {
-                files = listOfFiles[i].getName();
-                System.out.println(files);
+                String file_name;
+                file_name = listOfFiles[i].getName();
+                System.out.println("    " + i + " - " + file_name);
             }
         }
+        System.out.println();
+        System.out.print("Choose the input web service: ");
+        
+        FileInputStream inputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
+        
+        System.out.print("Choose the output web service: ");
+        
+        FileInputStream outputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
 
+        // TODO use inputWs and outputWs to get the actual descriptions
+        
         testOutput();
     }
     
