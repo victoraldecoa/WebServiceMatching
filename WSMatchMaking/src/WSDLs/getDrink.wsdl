@@ -40,7 +40,7 @@
 
 <!--set of operations......-->
 <portType name="DrinkPort">
-    <operation name="Drink">
+    <operation name="getDrink">
        <input message="tns:GetDrinkInput"/>
        <output message="tns:GetDrinkOutput"/>
     </operation>
@@ -50,7 +50,7 @@
 <!--protocol and data format specification....-->
 <binding name="DrinkBinding" type="tns:DrinkPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="GetDrink">
+        <operation name="getDrink">
            <soap:operation soapAction=""/>
            <input>
                <soap:body use="literal"/>
@@ -61,7 +61,7 @@
         </operation>
 </binding>
 
-<service name="DrinkService">
+<service name="WS_B">
         <documentation>Drink service</documentation>
         <port name="DrinkPort" binding="tns:DrinkBinding">
            <soap:address location="http://www.kth.se/ict/id2208/Matching"/>

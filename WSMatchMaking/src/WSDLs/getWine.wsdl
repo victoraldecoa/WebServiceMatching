@@ -40,7 +40,7 @@
 
 <!--set of operations......-->
 <portType name="WinePort">
-    <operation name="Wine">
+    <operation name="getWine">
        <input message="tns:GetWineInput"/>
        <output message="tns:GetWineOutput"/>
     </operation>
@@ -50,7 +50,7 @@
 <!--protocol and data format specification....-->
 <binding name="WineBinding" type="tns:WinePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="GetWine">
+        <operation name="getWine">
            <soap:operation soapAction=""/>
            <input>
                <soap:body use="literal"/>
@@ -61,7 +61,7 @@
         </operation>
 </binding>
 
-<service name="WineService">
+<service name="WS_A">
         <documentation>Wine service</documentation>
         <port name="WinePort" binding="tns:WineBinding">
            <soap:address location="http://www.kth.se/ict/id2208/Matching"/>
