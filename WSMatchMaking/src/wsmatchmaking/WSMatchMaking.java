@@ -16,18 +16,17 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.ow2.easywsdl.schema.api.Schema;
-import org.ow2.easywsdl.schema.impl.SchemaImpl;
-import org.ow2.easywsdl.schema.impl.SchemaReaderImpl;
+import org.ow2.easywsdl.schema.api.ComplexType;
+import org.ow2.easywsdl.schema.api.Element;
+import org.ow2.easywsdl.schema.api.Sequence;
+import org.ow2.easywsdl.schema.api.SimpleType;
+import org.ow2.easywsdl.schema.api.Type;
 import org.ow2.easywsdl.wsdl.WSDLFactory;
 import org.ow2.easywsdl.wsdl.api.BindingOperation;
 import org.ow2.easywsdl.wsdl.api.Description;
 import org.ow2.easywsdl.wsdl.api.Endpoint;
 import org.ow2.easywsdl.wsdl.api.Part;
 import org.ow2.easywsdl.wsdl.api.Service;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
@@ -37,6 +36,7 @@ import org.xml.sax.InputSource;
 public class WSMatchMaking {
 
     private static boolean editDistance;
+
     /**
      * @param args the command line arguments
      */
@@ -131,23 +131,32 @@ public class WSMatchMaking {
                 mo.setInputOperationName(o_i.getQName().getLocalPart());
                 mo.setOutputOperationName(o_o.getQName().getLocalPart());
 
-                for (Part e_i : o_i.getOperation().getInput().getParts()) {                    
-                    if (e_i.getType() != null) {
-                        if (e_i.getType().getQName().getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
-                            matchWithOutputElements(o_o.getOperation().getOutput().getParts(),
-                                                    e_i.getPartQName().getLocalPart(),
-                                                    mo.matchedElements);
-                        } else {
-                            // TODO matchWithOutputElements for each simpletypes inside this complexType
-                            System.out.println(e_i.getType().getQName().getNamespaceURI());
-                        }
-                    } else if (e_i.getElement() != null) {
-                        // TODO matchWithOutputElements for each simpletypes inside this element
-                        System.out.println(e_i.getElement().getQName().getLocalPart());
+                for (Part e_i : o_i.getOperation().getInput().getParts()) {
+                    Element element = e_i.getElement();
+                    Type type = e_i.getType();
+
+                    ArrayList<Element> simpleElements = null;
+                    if (type == null) {
+                        getAllSimpleTypedElements(element, simpleElements);
                     } else {
-                        matchWithOutputElements(o_o.getOperation().getOutput().getParts(),
-                                                e_i.getPartQName().getLocalPart(),
-                                                mo.matchedElements);
+                        if (type instanceof SimpleType) {
+                            matchWithOutputElements(o_o.getOperation().getOutput().getParts(), e_i.getPartQName().getLocalPart(), mo.matchedElements);
+                        } else if (type instanceof ComplexType) {
+                            // it's a complex type => must have a sequence
+                            Sequence seq = ((ComplexType) type).getSequence();
+                            // though, some of them did not, probably a bug in the schema
+                            if (seq != null) {
+                                for (Element el : seq.getElements()) {
+                                    getAllSimpleTypedElements(el, simpleElements);
+                                }
+                            }
+                        }
+                    }
+
+                    if (simpleElements != null) {
+                        for (Element el : simpleElements) {
+                            matchWithOutputElements(o_o.getOperation().getOutput().getParts(), el.getQName().getLocalPart(), mo.matchedElements);
+                        }
                     }
                 }
 
@@ -155,7 +164,7 @@ public class WSMatchMaking {
                     mo.calculateOpScore();
                     // TODO uncomment the if
                     //if (mo.getOpScore() > 0.8) {
-                        mws.matchedOperations.add(mo);
+                    mws.matchedOperations.add(mo);
                     //}
                 }
             }
@@ -170,23 +179,34 @@ public class WSMatchMaking {
 
         //testOutput();
     }
-    
-    
+
     private static void matchWithOutputElements(List<Part> parts, String element_name, ArrayList<MatchedElement> matchedElements) {
         for (Part e_o : parts) {
-
-            if (e_o.getType() != null) {
-                if (e_o.getType().getQName().getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
-                    addMatchedElements(element_name, e_o.getPartQName().getLocalPart(), matchedElements);
-                } else {
-                    // TODO addMatchedElements for each simpletypes inside this complexType
-                    System.out.println(e_o.getType().getQName().getLocalPart());
-                }
-            } else if (e_o.getElement() != null) {
-                // TODO addMatchedElements for each simpletypes inside this element
-                System.out.println(e_o.getElement().getQName().getLocalPart());
+            Element element = e_o.getElement();
+            Type type = e_o.getType();
+            
+            ArrayList<Element> simpleElements = null;
+            if (type == null) {
+                getAllSimpleTypedElements(element, simpleElements);
             } else {
-                addMatchedElements(element_name, e_o.getPartQName().getLocalPart(), matchedElements);
+                if (type instanceof SimpleType) {
+                    addMatchedElements(element_name, e_o.getPartQName().getLocalPart(), matchedElements);
+                } else if (type instanceof ComplexType) {
+                    // it's a complex type => must have a sequence
+                    Sequence seq = ((ComplexType) type).getSequence();
+                    // though, some of them did not, probably a bug in the schema
+                    if (seq != null) {
+                        for (Element el : seq.getElements()) {
+                            getAllSimpleTypedElements(el, simpleElements);
+                        }
+                    }
+                }
+            }
+
+            if (simpleElements != null) {
+                for (Element el : simpleElements) {
+                    addMatchedElements(element_name, el.getQName().getLocalPart(), matchedElements);
+                }
             }
         }
     }
@@ -266,5 +286,24 @@ public class WSMatchMaking {
 
         createOutput(wsm);
     }
-    
+
+    private static void getAllSimpleTypedElements(Element el, ArrayList<Element> result) {
+        if (result == null) {
+            result = new ArrayList<>();
+        }
+        
+        Type type = el.getType();
+        if (type instanceof SimpleType) {
+            result.add(el);
+        } else if (type instanceof ComplexType) {
+            // it's a complex type => must have a sequence
+            Sequence seq = ((ComplexType) type).getSequence();
+            // though, some of them did not, probably a bug in the schema
+            if (seq != null) {
+                for (Element innerEl : seq.getElements()) {
+                    getAllSimpleTypedElements(innerEl, result);
+                }
+            }
+        }
+    }
 }
