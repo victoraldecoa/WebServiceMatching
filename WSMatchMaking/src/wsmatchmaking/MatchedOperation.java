@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /*
  * To change this template, choose Tools | Templates
@@ -14,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author victor & alex
  */
 @XmlRootElement(name = "MacthedOperation", namespace = "http://www.kth.se/ict/id2208/Matching")
+@XmlType(propOrder = { "inputOperationName", "outputOperationName", "opScore", "matchedElements" })
 public class MatchedOperation {
 
     private String OutputOperationName;

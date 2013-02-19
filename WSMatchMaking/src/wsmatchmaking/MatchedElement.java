@@ -29,7 +29,8 @@ class MatchedElement {
         try {
             score = sim.getSimilarity(outputElement, inputElement, metric);
         } catch (WordNotFoundException e) {
-            System.out.println("Word not found in WordNet. Using EditDistance instead.");
+            System.out.print(e.getMessage());
+            System.out.println(" Using EditDistance instead.");
             calculateScoreUsingEditDistance();
         }
     }

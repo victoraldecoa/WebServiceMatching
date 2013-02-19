@@ -3,6 +3,7 @@ package wsmatchmaking;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author victor & alex
  */
 @XmlRootElement(name = "Macthing", namespace = "http://www.kth.se/ict/id2208/Matching")
+@XmlType(propOrder = { "inputServiceName", "outputServiceName", "wsScore", "matchedOperations" })
 public class MatchedWebService {
 
     private String OutputServiceName;
