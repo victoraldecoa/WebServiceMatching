@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--IT'SNOT COMPLETELY RIGHT. IT'S A GENERAL IDEA OF HOW IT SHOULD LOOK LIKE. -->
-<definitions
-        targetNamespace="http://www.kth.se/ict/id2208/Matching/getDrink.wsdl"
-        xmlns:tns="http://www.kth.se/ict/id2208/Matching/getDrink.wsdl"    
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-            
-        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions   
+        xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:tns="http://www.kth.se/ict/id2208/Matching/getDrink.wsdl" 
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-        
-        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-        xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"  >
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        targetNamespace="http://www.kth.se/ict/id2208/Matching/getDrink.wsdl"  >
 
 <types>
   <!--data type definitions........ -->

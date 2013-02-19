@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--IT'SNOT COMPLETELY RIGHT. IT'S A GENERAL IDEA OF HOW IT SHOULD LOOK LIKE. -->
 <definitions
-        targetNamespace="http://www.kth.se/ict/id2208/Matching/getWine.wsdl"
-        xmlns:tns="http://www.kth.se/ict/id2208/Matching/getWine.wsdl"    
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-            
-        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-        
-        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-        xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"  >
+
+            xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:tns="http://www.kth.se/ict/id2208/Matching/getWine.wsdl"  
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+            targetNamespace="http://www.kth.se/ict/id2208/Matching/getWine.wsdl">
 
 <!--data type definitions........ -->    
 <types>
@@ -31,10 +32,10 @@
 
 <!--definition of the data being communicated.... THE FOLLOWING ELEMENTS/NAMES ARE NOT CORRECT YET-->
 <wsdl:message name="GetWineInput">
-        <wsdl:part name="parameters" element="tns:Request"/> 
+        <wsdl:part name="parameters" element="tns:Wine"/> 
 </wsdl:message>
 <wsdl:message name="GetWineOutput">
-        <wsdl:part name="parameters" element="tns:Response"/> 
+        <wsdl:part name="parameters" element="tns:Wine"/> 
 </wsdl:message>
 
 
