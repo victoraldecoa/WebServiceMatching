@@ -89,6 +89,7 @@ public class WSMatchMaking {
         for (Service s : d_i.getServices()) {
             s_i = s;
             mws.setInputServiceName(s_i.getQName().getLocalPart());
+
         }
         if (s_i == null) {
             throw new Exception("No services found on the input");
@@ -131,19 +132,26 @@ public class WSMatchMaking {
                 mo.setInputOperationName(o_i.getQName().getLocalPart());
                 mo.setOutputOperationName(o_o.getQName().getLocalPart());
 
-                for (Part e_i : o_i.getOperation().getInput().getParts()) {
-                    Element element = e_i.getElement();
+                //System.out.println("in" + mo.getInputOperationName() + "");
+               // System.out.println("out" + mo.getOutputOperationName());
+
+                 // change input to output to see the same service score....
+                for (Part e_i : o_i.getOperation().getOutput().getParts()) { 
+                   Element element = e_i.getElement();
                     Type type = e_i.getType();
 
                     ArrayList<Element> simpleElements = null;
                     if (type == null) {
+                         System.out.println("type1"+ type);
                         getAllSimpleTypedElements(element, simpleElements);
                     } else {
                         if (type instanceof SimpleType) {
+                            //  System.out.println("type2"+ type);
                             matchWithOutputElements(o_o.getOperation().getOutput().getParts(), e_i.getPartQName().getLocalPart(), mo.matchedElements);
                         } else if (type instanceof ComplexType) {
                             // it's a complex type => must have a sequence
                             Sequence seq = ((ComplexType) type).getSequence();
+                            //  System.out.println("seq"+ seq);
                             // though, some of them did not, probably a bug in the schema
                             if (seq != null) {
                                 for (Element el : seq.getElements()) {
@@ -156,16 +164,21 @@ public class WSMatchMaking {
                     if (simpleElements != null) {
                         for (Element el : simpleElements) {
                             matchWithOutputElements(o_o.getOperation().getOutput().getParts(), el.getQName().getLocalPart(), mo.matchedElements);
+
                         }
+
                     }
                 }
 
                 if (!mo.matchedElements.isEmpty()) {
+
                     mo.calculateOpScore();
                     // TODO uncomment the if
-                    //if (mo.getOpScore() > 0.8) {
-                    mws.matchedOperations.add(mo);
-                    //}
+                    if (mo.getOpScore() > 0.8) {
+                        mws.matchedOperations.add(mo);
+
+
+                    }
                 }
             }
         }
@@ -174,7 +187,7 @@ public class WSMatchMaking {
             mws.calculateWSScore();
             wsmatching.matchedWebServices.add(mws);
         }
-
+        System.out.println(mws.getWsScore());
         createOutput(wsmatching);
 
         //testOutput();
@@ -184,7 +197,7 @@ public class WSMatchMaking {
         for (Part e_o : parts) {
             Element element = e_o.getElement();
             Type type = e_o.getType();
-            
+
             ArrayList<Element> simpleElements = null;
             if (type == null) {
                 getAllSimpleTypedElements(element, simpleElements);
@@ -220,7 +233,9 @@ public class WSMatchMaking {
         } else {
             me.calculateScoreUsingWordNet();
         }
+
         matchedElements.add(me);
+
     }
 
     private static void createOutput(WSMatching wsm) {
@@ -240,6 +255,7 @@ public class WSMatchMaking {
     }
 
     private static void testOutput() {
+
         WSMatching wsm = new WSMatching();
         wsm.matchedWebServices = new ArrayList<>();
 
@@ -291,11 +307,14 @@ public class WSMatchMaking {
         if (result == null) {
             result = new ArrayList<>();
         }
-        
+        // System.out.println("result"+ result);
         Type type = el.getType();
         if (type instanceof SimpleType) {
+            //  System.out.println("method:simple type"+ type);
             result.add(el);
+            // System.out.println("final result"+ result);
         } else if (type instanceof ComplexType) {
+            // System.out.println("method:type"+ type);
             // it's a complex type => must have a sequence
             Sequence seq = ((ComplexType) type).getSequence();
             // though, some of them did not, probably a bug in the schema
