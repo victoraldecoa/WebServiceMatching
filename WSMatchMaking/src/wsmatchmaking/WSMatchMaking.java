@@ -26,7 +26,6 @@ import org.ow2.easywsdl.wsdl.api.Description;
 import org.ow2.easywsdl.wsdl.api.Endpoint;
 import org.ow2.easywsdl.wsdl.api.Part;
 import org.ow2.easywsdl.wsdl.api.Service;
-import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
