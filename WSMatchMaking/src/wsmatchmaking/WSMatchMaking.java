@@ -9,16 +9,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.ow2.easywsdl.schema.api.Schema;
-import org.ow2.easywsdl.schema.impl.SchemaImpl;
-import org.ow2.easywsdl.schema.impl.SchemaReaderImpl;
 import org.ow2.easywsdl.wsdl.WSDLFactory;
 import org.ow2.easywsdl.wsdl.api.BindingOperation;
 import org.ow2.easywsdl.wsdl.api.Description;
@@ -26,8 +22,6 @@ import org.ow2.easywsdl.wsdl.api.Endpoint;
 import org.ow2.easywsdl.wsdl.api.Part;
 import org.ow2.easywsdl.wsdl.api.Service;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
@@ -100,7 +94,7 @@ public class WSMatchMaking {
 
             mws.setOutputServiceName(s_o.getQName().getLocalPart());
         }
-
+        
         if (s_o == null) {
             throw new Exception("No services found on the output");
         }
