@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author victor & alex
  */
-@XmlRootElement(name = "Macthing", namespace = "http://www.kth.se/ict/id2208/Matching")
+@XmlRootElement(name = "Matching", namespace = "http://www.kth.se/ict/id2208/Matching")
 @XmlType(propOrder = { "inputServiceName", "outputServiceName", "wsScore", "matchedOperations" })
 public class MatchedWebService {
 
@@ -22,7 +22,7 @@ public class MatchedWebService {
     @XmlElement(name = "WsScore")
     private double wsScore;
     
-    @XmlElement(name = "MacthedOperation")
+    @XmlElement(name = "MatchedOperation")
     public ArrayList<MatchedOperation> matchedOperations;
 
     public String getOutputServiceName() {

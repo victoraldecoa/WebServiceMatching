@@ -100,7 +100,7 @@ public class WSMatchMaking {
 
             mws.setOutputServiceName(s_o.getQName().getLocalPart());
         }
-        
+
         if (s_o == null) {
             throw new Exception("No services found on the output");
         }
@@ -132,16 +132,16 @@ public class WSMatchMaking {
                 mo.setOutputOperationName(o_o.getQName().getLocalPart());
 
                 //System.out.println("in" + mo.getInputOperationName() + "");
-               // System.out.println("out" + mo.getOutputOperationName());
+                // System.out.println("out" + mo.getOutputOperationName());
 
-                 // change input to output to see the same service score....
-                for (Part e_i : o_i.getOperation().getInput().getParts()) { 
-                   Element element = e_i.getElement();
+                // change input to output to see the same service score....
+                for (Part e_i : o_i.getOperation().getInput().getParts()) {
+                    Element element = e_i.getElement();
                     Type type = e_i.getType();
 
                     ArrayList<Element> simpleElements = null;
                     if (type == null) {
-                         System.out.println("type1"+ type);
+                        System.out.println("type1" + type);
                         getAllSimpleTypedElements(element, simpleElements);
                     } else {
                         if (type instanceof SimpleType) {
@@ -174,9 +174,7 @@ public class WSMatchMaking {
                     mo.calculateOpScore();
                     // TODO uncomment the if
 //                    if (mo.getOpScore() > 0.8) {
-                        mws.matchedOperations.add(mo);
-
-
+                    mws.matchedOperations.add(mo);
 //                    }
                 }
             }

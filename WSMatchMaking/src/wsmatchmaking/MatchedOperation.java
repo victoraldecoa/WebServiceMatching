@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author victor & alex
  */
-@XmlRootElement(name = "MacthedOperation", namespace = "http://www.kth.se/ict/id2208/Matching")
+@XmlRootElement(namespace = "http://www.kth.se/ict/id2208/Matching")
 @XmlType(propOrder = { "inputOperationName", "outputOperationName", "opScore", "matchedElements" })
 public class MatchedOperation {
 
@@ -24,7 +24,7 @@ public class MatchedOperation {
     @XmlElement(name = "OpScore")
     private double opScore;
     
-    @XmlElement(name = "MacthedElement")
+    @XmlElement(name = "MatchedElement")
     public ArrayList<MatchedElement> matchedElements;
 
     public String getInputOperationName() {
