@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +30,7 @@ import org.xml.sax.InputSource;
 
 /**
  *
- * @author victor & alex
+ * @author victor, ashwini & alex
  */
 public class WSMatchMaking {
 
@@ -101,7 +100,7 @@ public class WSMatchMaking {
 
             mws.setOutputServiceName(s_o.getQName().getLocalPart());
         }
-
+        
         if (s_o == null) {
             throw new Exception("No services found on the output");
         }
