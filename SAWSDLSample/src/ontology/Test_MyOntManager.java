@@ -25,6 +25,8 @@ public class Test_MyOntManager {
 
         Test_MyOntManager test = new Test_MyOntManager();
         test.test_Relationships();
+        //test.test_subclassing_direct();
+        //test.test_subclassing_indirect();
     }
 
     @BeforeClass
@@ -76,6 +78,7 @@ public class Test_MyOntManager {
         assertNotNull(cls1);
         OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
         assertNotNull(cls2);
+        
         assertTrue(reasoner.isSubClassOf(cls2, cls1));  // this is
     }
 
@@ -98,10 +101,16 @@ public class Test_MyOntManager {
         String clsName2 = "Accommodation";
 
         HashMap<String, OWLClass> mapName_OWLClass = ontsum.loadClasses(reasoner);
+        
         OWLClass cls1 = mapName_OWLClass.get(clsName1.toLowerCase());
         assertNotNull(cls1);
         OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
         assertNotNull(cls2);
+        
+        System.out.println(reasoner.isSubClassOf(cls1, cls2));
+        System.out.println(reasoner.isSubClassOf(cls2, cls1));
+        System.out.println(reasoner.isSameAs(cls1.asOWLIndividual(), cls2.asOWLIndividual()));
+        
         Vector<OWLObjectProperty> objprops = ontsum.findRelationship(cls1, cls2, reasoner);
         assertTrue(objprops.size() == 1);
         assertTrue(objprops.get(0).getURI().getFragment().equalsIgnoreCase("hasAccommodation"));
