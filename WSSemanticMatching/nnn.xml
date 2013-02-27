@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<ns1:WSMatching
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:ns1='http://www.kth.se/ict/id2208/Matching'
+    xsi:schemaLocation='http://www.kth.se/ict/id2208/Matching src/Output.xsd'>
+    <ns1:Macthing>
+        <ns1:OutputServiceName></ns1:OutputServiceName>
+        <ns1:InputServiceName></ns1:InputServiceName>
+        <ns1:MacthedOperation>
+            <ns1:OutputOperationName></ns1:OutputOperationName>
+            <ns1:InputOperationName></ns1:InputOperationName>
+            <ns1:OpScore></ns1:OpScore>
+            <ns1:MacthedElement>
+                <ns1:OutputElement></ns1:OutputElement>
+                <ns1:InputElement></ns1:InputElement>
+                <ns1:Score></ns1:Score>
+            </ns1:MacthedElement>
+        </ns1:MacthedOperation>
+        <ns1:WsScore></ns1:WsScore>
+    </ns1:Macthing>
+
+</ns1:WSMatching>
