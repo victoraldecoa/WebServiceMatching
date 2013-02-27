@@ -136,7 +136,7 @@ public class WSMatchMaking {
                // System.out.println("out" + mo.getOutputOperationName());
 
                  // change input to output to see the same service score....
-                for (Part e_i : o_i.getOperation().getOutput().getParts()) { 
+                for (Part e_i : o_i.getOperation().getInput().getParts()) { 
                    Element element = e_i.getElement();
                     Type type = e_i.getType();
 
@@ -174,11 +174,11 @@ public class WSMatchMaking {
 
                     mo.calculateOpScore();
                     // TODO uncomment the if
-                    if (mo.getOpScore() > 0.8) {
+//                    if (mo.getOpScore() > 0.8) {
                         mws.matchedOperations.add(mo);
 
 
-                    }
+//                    }
                 }
             }
         }
