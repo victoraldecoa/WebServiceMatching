@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package wsmatchmaking;
+package wssemanticmatching;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +32,7 @@ import org.xml.sax.InputSource;
  *
  * @author victor, ashwini & alex
  */
-public class WSMatchMaking {
+public class WSSemanticMatching {
 
     private static boolean editDistance;
 
@@ -247,7 +247,7 @@ public class WSMatchMaking {
             m.marshal(wsm, new File("src/output.xml"));
 
         } catch (JAXBException ex) {
-            Logger.getLogger(WSMatchMaking.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WSSemanticMatching.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
