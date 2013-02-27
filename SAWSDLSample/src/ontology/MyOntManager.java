@@ -99,6 +99,7 @@ public class MyOntManager {
         for (OWLClass cls : reasoner.getClasses()) {
             if (cls.getURI() != null) {
                 String concept_name = getConceptName(cls);
+                System.out.println("");
                 mapName_OWLClass.put(concept_name.toLowerCase(), cls);
             } else {
                 System.out.println("Something is Wrong !!");

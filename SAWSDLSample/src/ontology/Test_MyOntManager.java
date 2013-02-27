@@ -98,7 +98,12 @@ public class Test_MyOntManager {
     @Test
     public void test_Relationships() {
         String clsName1 = "Destination";
-        String clsName2 = "Accommodation";
+        String clsName2= "BackPackersDestination";
+        
+        //String clsName2 = "Accomadation";
+        
+//        String clsName1 = "Destination";
+//        String clsName2 = "Activity";
 
         HashMap<String, OWLClass> mapName_OWLClass = ontsum.loadClasses(reasoner);
         
@@ -109,13 +114,34 @@ public class Test_MyOntManager {
         
         System.out.println(reasoner.isSubClassOf(cls1, cls2));
         System.out.println(reasoner.isSubClassOf(cls2, cls1));
-        System.out.println(reasoner.isSameAs(cls1.asOWLIndividual(), cls2.asOWLIndividual()));
-        
+        System.out.println(cls1+"-"+cls2); // for the moment cs1 is Cinput and cs2 is Coutput
+              
         Vector<OWLObjectProperty> objprops = ontsum.findRelationship(cls1, cls2, reasoner);
-        assertTrue(objprops.size() == 1);
-        assertTrue(objprops.get(0).getURI().getFragment().equalsIgnoreCase("hasAccommodation"));
-    }
+        // assertTrue(objprops.size() == 1);
+           assertTrue(objprops.size() == 0);
+         // assertTrue(objprops.get(0).getURI().getFragment().equalsIgnoreCase("hasAccommodation"));
+        //assertTrue(objprops.get(0).getURI().getFragment().equalsIgnoreCase("has subclass"));
+       // assertTrue(objprops.get(0).getURI().getFragment().equalsIgnoreCase("hasActivity"));
+        String Match = matching(cls1,cls2);
+        System.out.println("Matching results are:   " + Match);
+     }
 
+    public String matching(OWLClass a, OWLClass b){ //a=cl1,b=cl2
+        
+         /* if  (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual())== true){
+            return "Exact";  //need to solve isssue
+          }else*/ if (reasoner.isSubClassOf(b, a)){
+              return "Plug-in"; 
+          }else if(reasoner.isSubClassOf(a, b)){
+              return "Subsumption"; 
+          }else if(reasoner.isEquivalentClass(a, b)){
+             return "Subsumption";    
+          }
+              //?? we should also do for has relation ship
+        return "Not-Matched";
+        
+            
+        }
     @Test
     public void testSorting() {
         ClsQuickSort sorter = new ClsQuickSort();
