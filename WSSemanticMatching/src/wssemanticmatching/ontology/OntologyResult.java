@@ -9,6 +9,7 @@ package wssemanticmatching.ontology;
  * @author victor
  */
 public enum OntologyResult {
+
     Exact,
     PlugIn,
     Subsumption,

@@ -39,7 +39,7 @@ public class WSSemanticMatching {
     
     public static void testOntologyMatcher() {
         OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
-        System.out.println(ontologyMatcher.getScore("Destination", "BackPackersDestination"));
+        System.out.println(ontologyMatcher.getScore("Christian", "Anglican"));
     }
 
     /**

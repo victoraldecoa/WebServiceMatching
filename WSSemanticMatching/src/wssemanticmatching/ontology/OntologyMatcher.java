@@ -5,10 +5,8 @@
 package wssemanticmatching.ontology;
 
 import java.util.HashMap;
-import java.util.Vector;
 import org.mindswap.pellet.owlapi.Reasoner;
 import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLObjectProperty;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 
@@ -26,7 +24,6 @@ public class OntologyMatcher {
     private static OntologyMatcher instance = null;
 
     // public methods
-    
     public static OntologyMatcher getInstance() {
         if (instance == null) {
             instance = new OntologyMatcher();
@@ -55,7 +52,6 @@ public class OntologyMatcher {
     }
 
     // private methods
-    
     private OntologyMatcher() {
         initializeOntology();
     }
