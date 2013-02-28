@@ -1,16 +1,6 @@
 package Test;
 
-import java.util.HashMap;
-import java.util.Vector;
 import ontology.MyOntManager;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mindswap.pellet.owlapi.Reasoner;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLObjectProperty;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import sort.ClsQuickSort;
 
 /**
  *
@@ -39,7 +29,7 @@ public class Test1 {
 	private static OWLOntologyManager manager = null;
 	private static OWLOntology ontology = null;
 	private static Reasoner reasoner = null;
-	private static String ontLocation = "file:data/portal.owl";
+	private static String ontLocation = "file:data/travel.owl";
 	private static MyOntManager ontsum = null;
 
 

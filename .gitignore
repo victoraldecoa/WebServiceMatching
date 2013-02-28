@@ -14,3 +14,22 @@
 /WSMatchMaking/nbactions.xml
 /WSMatchMaking/nb-configuration.xml
 /WSMatchMaking/src/output.xml
+
+# NetBeans specific #
+/WSSemanticMatching/nbproject/private/
+/WSSemanticMatching/build/
+/WSSemanticMatching/nbbuild/
+/WSSemanticMatching/dist/
+/WSSemanticMatching/nbdist/
+/WSSemanticMatching/nbactions.xml
+/WSSemanticMatching/nb-configuration.xml
+/WSSemanticMatching/src/output.xml
+
+# NetBeans specific #
+/SAWSDLSample/nbproject/private/
+/SAWSDLSample/build/
+/SAWSDLSample/nbbuild/
+/SAWSDLSample/dist/
+/SAWSDLSample/nbdist/
+/SAWSDLSample/nbactions.xml
+/SAWSDLSample/nb-configuration.xml
