@@ -27,7 +27,7 @@ public class OntologyMatcher {
 
     // public methods
     
-    public OntologyMatcher getInstance() {
+    public static OntologyMatcher getInstance() {
         if (instance == null) {
             instance = new OntologyMatcher();
         }

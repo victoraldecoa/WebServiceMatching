@@ -27,6 +27,7 @@ import org.ow2.easywsdl.wsdl.api.Endpoint;
 import org.ow2.easywsdl.wsdl.api.Part;
 import org.ow2.easywsdl.wsdl.api.Service;
 import org.xml.sax.InputSource;
+import wssemanticmatching.ontology.OntologyMatcher;
 
 /**
  *
@@ -35,11 +36,18 @@ import org.xml.sax.InputSource;
 public class WSSemanticMatching {
 
     private static boolean editDistance;
+    
+    public static void testOntologyMatcher() {
+        OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
+        System.out.println(ontologyMatcher.getScore("Destination", "BackPackersDestination"));
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, Exception {
+        testOntologyMatcher();
+        
         Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
