@@ -43,7 +43,7 @@ public class WSSemanticMatching {
         Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
-        File folder = new File("src/WSDLs");
+        File folder = new File("src/SAWSDL");
         File[] listOfFiles = folder.listFiles();
 
         System.out.println("The available WSDLs are:");
@@ -305,6 +305,10 @@ public class WSSemanticMatching {
             result = new ArrayList<>();
         }
         // System.out.println("result"+ result);
+        if (el == null) {
+            // nothing to do here
+            return;
+        }
         Type type = el.getType();
         if (type instanceof SimpleType) {
             //  System.out.println("method:simple type"+ type);
