@@ -36,6 +36,11 @@ public class OntologyMatcher {
 
         OWLClass cls1 = mapName_OWLClass.get(clsName1.toLowerCase());
         OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
+        
+        if (cls1 == null || cls2 == null) {
+            System.err.println("One or both classes don't exist on the ontology");
+            return 0.0f;
+        }
 
         /*
          System.out.println(reasoner.isSubClassOf(cls1, cls2));
