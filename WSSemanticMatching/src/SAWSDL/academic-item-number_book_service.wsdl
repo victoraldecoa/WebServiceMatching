@@ -8,7 +8,7 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_BOOKResponse">
-    <wsdl:part name="_BOOK" type="BookType">
+    <wsdl:part name="BOOK" type="BookType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="Academic-item-numberBookSoap">

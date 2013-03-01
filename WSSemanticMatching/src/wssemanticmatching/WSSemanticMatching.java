@@ -35,8 +35,6 @@ import wssemanticmatching.ontology.OntologyMatcher;
  */
 public class WSSemanticMatching {
 
-    private static boolean editDistance;
-    
     public static void testOntologyMatcher() {
         OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
         System.out.println(ontologyMatcher.getScore("Christian", "Anglican"));
@@ -47,7 +45,9 @@ public class WSSemanticMatching {
      */
     public static void main(String[] args) throws FileNotFoundException, Exception {
         testOntologyMatcher();
-        
+        ArrayList<String> iElements = new ArrayList<>();
+        ArrayList<String> oElements = new ArrayList<>();
+
         Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
@@ -71,17 +71,6 @@ public class WSSemanticMatching {
         System.out.print("Choose the output web service: ");
 
         FileInputStream outputWs = new FileInputStream(listOfFiles[scanner.nextInt()]);
-
-        System.out.println();
-        System.out.println("1 - : Use EditDistance");
-        System.out.println("2 - : Use WordNet");
-        System.out.print("Choose the method for calculating a matched element score: ");
-
-        if (scanner.nextInt() == 1) {
-            editDistance = true;
-        } else {
-            editDistance = false;
-        }
 
         WSMatching wsmatching = new WSMatching();
         wsmatching.matchedWebServices = new ArrayList<>();
@@ -139,199 +128,28 @@ public class WSSemanticMatching {
                 mo.setInputOperationName(o_i.getQName().getLocalPart());
                 mo.setOutputOperationName(o_o.getQName().getLocalPart());
 
-                //System.out.println("in" + mo.getInputOperationName() + "");
-                // System.out.println("out" + mo.getOutputOperationName());
+                System.out.println("inputOperation:" + mo.getInputOperationName() + "");
+                System.out.println("outputOperation:" + mo.getOutputOperationName());
 
                 // change input to output to see the same service score....
                 for (Part e_i : o_i.getOperation().getInput().getParts()) {
-                    Element element = e_i.getElement();
-                    Type type = e_i.getType();
 
-                    ArrayList<Element> simpleElements = null;
-                    if (type == null) {
-                        System.out.println("type1" + type);
-                        getAllSimpleTypedElements(element, simpleElements);
-                    } else {
-                        if (type instanceof SimpleType) {
-                            //  System.out.println("type2"+ type);
-                            matchWithOutputElements(o_o.getOperation().getOutput().getParts(), e_i.getPartQName().getLocalPart(), mo.matchedElements);
-                        } else if (type instanceof ComplexType) {
-                            // it's a complex type => must have a sequence
-                            Sequence seq = ((ComplexType) type).getSequence();
-                            //  System.out.println("seq"+ seq);
-                            // though, some of them did not, probably a bug in the schema
-                            if (seq != null) {
-                                for (Element el : seq.getElements()) {
-                                    getAllSimpleTypedElements(el, simpleElements);
-                                }
-                            }
-                        }
+                    System.out.println("InputElement: " + e_i.getPartQName().getLocalPart());
+                    String input_element = e_i.getPartQName().getLocalPart();
+                            
+                    for (Part e_o : o_o.getOperation().getOutput().getParts()) {
+                        System.out.println("OutputElement " + e_o.getPartQName().getLocalPart());
+                        String output_element = e_o.getPartQName().getLocalPart();
+            
+                        OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
+                        System.out.println(ontologyMatcher.getScore(input_element,output_element));
                     }
 
-                    if (simpleElements != null) {
-                        for (Element el : simpleElements) {
-                            matchWithOutputElements(o_o.getOperation().getOutput().getParts(), el.getQName().getLocalPart(), mo.matchedElements);
-
-                        }
-
-                    }
                 }
 
-                if (!mo.matchedElements.isEmpty()) {
 
-                    mo.calculateOpScore();
-                    // TODO uncomment the if
-//                    if (mo.getOpScore() > 0.8) {
-                    mws.matchedOperations.add(mo);
-//                    }
-                }
-            }
-        }
-
-        if (!mws.matchedOperations.isEmpty()) {
-            mws.calculateWSScore();
-            wsmatching.matchedWebServices.add(mws);
-        }
-        System.out.println(mws.getWsScore());
-        createOutput(wsmatching);
-
-        //testOutput();
-    }
-
-    private static void matchWithOutputElements(List<Part> parts, String element_name, ArrayList<MatchedElement> matchedElements) {
-        for (Part e_o : parts) {
-            Element element = e_o.getElement();
-            Type type = e_o.getType();
-
-            ArrayList<Element> simpleElements = null;
-            if (type == null) {
-                getAllSimpleTypedElements(element, simpleElements);
-            } else {
-                if (type instanceof SimpleType) {
-                    addMatchedElements(element_name, e_o.getPartQName().getLocalPart(), matchedElements);
-                } else if (type instanceof ComplexType) {
-                    // it's a complex type => must have a sequence
-                    Sequence seq = ((ComplexType) type).getSequence();
-                    // though, some of them did not, probably a bug in the schema
-                    if (seq != null) {
-                        for (Element el : seq.getElements()) {
-                            getAllSimpleTypedElements(el, simpleElements);
-                        }
-                    }
-                }
             }
 
-            if (simpleElements != null) {
-                for (Element el : simpleElements) {
-                    addMatchedElements(element_name, el.getQName().getLocalPart(), matchedElements);
-                }
-            }
-        }
-    }
-
-    private static void addMatchedElements(String ei_name, String eo_name, ArrayList<MatchedElement> matchedElements) {
-        MatchedElement me = new MatchedElement();
-        me.setInputElement(ei_name);
-        me.setOutputElement(eo_name);
-        if (editDistance) {
-            me.calculateScoreUsingEditDistance();
-        } else {
-            me.calculateScoreUsingWordNet();
-        }
-
-        matchedElements.add(me);
-
-    }
-
-    private static void createOutput(WSMatching wsm) {
-        JAXBContext context;
-        Marshaller m;
-        try {
-            context = JAXBContext.newInstance(WSMatching.class);
-
-            m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-            m.marshal(wsm, new File("src/output.xml"));
-
-        } catch (JAXBException ex) {
-            Logger.getLogger(WSSemanticMatching.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void testOutput() {
-
-        WSMatching wsm = new WSMatching();
-        wsm.matchedWebServices = new ArrayList<>();
-
-        MatchedWebService mws = new MatchedWebService();
-        mws.matchedOperations = new ArrayList<>();
-        mws.setInputServiceName("WS_A");
-        mws.setOutputServiceName("WS_B");
-
-        MatchedOperation mo = new MatchedOperation();
-        mo.matchedElements = new ArrayList<>();
-        mo.setInputOperationName("getWine");
-        mo.setOutputOperationName("getDrink");
-
-        MatchedElement me = new MatchedElement();
-        me.setInputElement("Country");
-        me.setOutputElement("Country");
-        me.setScore(1.0);
-        mo.matchedElements.add(me);
-
-        me = new MatchedElement();
-        me.setInputElement("Price");
-        me.setOutputElement("Cost");
-        me.setScore(0.9);
-        mo.matchedElements.add(me);
-
-
-        me = new MatchedElement();
-        me.setInputElement("Region");
-        me.setOutputElement("Area");
-        me.setScore(0.85);
-        mo.matchedElements.add(me);
-
-        me = new MatchedElement();
-        me.setInputElement("Color");
-        me.setOutputElement("Colour");
-        me.setScore(1.0);
-        mo.matchedElements.add(me);
-
-        mo.calculateOpScore();
-
-        mws.matchedOperations.add(mo);
-        mws.calculateWSScore();
-        wsm.matchedWebServices.add(mws);
-
-        createOutput(wsm);
-    }
-
-    private static void getAllSimpleTypedElements(Element el, ArrayList<Element> result) {
-        if (result == null) {
-            result = new ArrayList<>();
-        }
-        // System.out.println("result"+ result);
-        if (el == null) {
-            // nothing to do here
-            return;
-        }
-        Type type = el.getType();
-        if (type instanceof SimpleType) {
-            //  System.out.println("method:simple type"+ type);
-            result.add(el);
-            // System.out.println("final result"+ result);
-        } else if (type instanceof ComplexType) {
-            // System.out.println("method:type"+ type);
-            // it's a complex type => must have a sequence
-            Sequence seq = ((ComplexType) type).getSequence();
-            // though, some of them did not, probably a bug in the schema
-            if (seq != null) {
-                for (Element innerEl : seq.getElements()) {
-                    getAllSimpleTypedElements(innerEl, result);
-                }
-            }
         }
     }
 }
