@@ -20,7 +20,7 @@ public class OntologyMatcher {
     private String ontLocation = "file:src/SUMO.owl";
     private OWLOntologyManager manager = null;
     private OWLOntology ontology = null;
-    private MyOntManager ontsum = null;
+    private OntologyManager ontsum = null;
     private static OntologyMatcher instance = null;
 
     // public methods
@@ -36,7 +36,7 @@ public class OntologyMatcher {
 
         OWLClass cls1 = mapName_OWLClass.get(clsName1.toLowerCase());
         OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
-        
+
         if (cls1 == null || cls2 == null) {
             System.err.println("One or both classes don't exist on the ontology");
             return 0.0f;
@@ -62,7 +62,7 @@ public class OntologyMatcher {
     }
 
     private void initializeOntology() {
-        ontsum = new MyOntManager();
+        ontsum = new OntologyManager();
         manager = ontsum.initializeOntologyManager();
         ontology = ontsum.initializeOntology(manager, ontLocation);
         reasoner = ontsum.initializeReasoner(ontology, manager);
@@ -70,9 +70,11 @@ public class OntologyMatcher {
 
     private OntologyResult matching(OWLClass a, OWLClass b) { //a=cl1,b=cl2
 
-        /* if  (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual())== true){
-         return "Exact";  // TODO need to solve isssue
-         }else*/ if (reasoner.isSubClassOf(b, a)) {
+        if (a.isOWLIndividual() && b.isOWLIndividual()) {
+            if (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual()) == true) {
+                return OntologyResult.Exact;  // TODO need to solve isssue
+            }
+        } else if (reasoner.isSubClassOf(b, a)) {
             return OntologyResult.PlugIn;
         } else if (reasoner.isSubClassOf(a, b)) {
             return OntologyResult.Subsumption;
