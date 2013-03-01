@@ -36,7 +36,7 @@ import wssemanticmatching.ontology.OntologyMatcher;
 public class WSSemanticMatching {
 
     private static boolean editDistance;
-    
+
     public static void testOntologyMatcher() {
         OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
         System.out.println(ontologyMatcher.getScore("Christian", "Anglican"));
@@ -47,7 +47,7 @@ public class WSSemanticMatching {
      */
     public static void main(String[] args) throws FileNotFoundException, Exception {
         testOntologyMatcher();
-        
+
         Scanner scanner = new Scanner(System.in);
 
         // getting all the WSDL files
@@ -260,7 +260,6 @@ public class WSSemanticMatching {
     }
 
     private static void testOutput() {
-
         WSMatching wsm = new WSMatching();
         wsm.matchedWebServices = new ArrayList<>();
 
@@ -308,7 +307,14 @@ public class WSSemanticMatching {
         createOutput(wsm);
     }
 
-    private static void getAllSimpleTypedElements(Element el, ArrayList<Element> result) {
+    /**
+     *
+     * @param el any element, with Simple or Complex type
+     * @param result a list with or without elements. The SimpleTyped elements
+     * will be added on this list
+     */
+    private static void getAllSimpleTypedElements(Element el,
+            ArrayList<Element> result) {
         if (result == null) {
             result = new ArrayList<>();
         }
