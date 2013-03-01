@@ -69,6 +69,11 @@ public class OntologyMatcher {
     }
 
     private OntologyResult matching(OWLClass a, OWLClass b) { //a=cl1,b=cl2
+        System.out.println(reasoner.isDisjointWith(a, b));
+        System.out.println(reasoner.isComplementOf(a, b));
+        if (a.isOWLDataProperty() && b.isOWLDataProperty()) {
+            System.out.println(reasoner.isEquivalentProperty(a.asOWLDataProperty(), b.asOWLDataProperty()));
+        }
         if (reasoner.isEquivalentClass(a, b)) {
             return OntologyResult.Exact;
         } else if (reasoner.isSubClassOf(b, a)) {
