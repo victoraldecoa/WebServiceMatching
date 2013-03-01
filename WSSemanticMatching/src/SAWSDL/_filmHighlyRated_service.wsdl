@@ -6,7 +6,7 @@
   <wsdl:message name="get_FILMRequest">
   </wsdl:message>
   <wsdl:message name="get_FILMResponse">
-    <wsdl:part name="_FILM" type="FilmType">
+    <wsdl:part name="FILM" type="FilmType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="FilmSoap">

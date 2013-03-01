@@ -6,7 +6,7 @@
   <wsdl:message name="get_PRICERequest">
   </wsdl:message>
   <wsdl:message name="get_PRICEResponse">
-    <wsdl:part name="_PRICE" type="PriceType">
+    <wsdl:part name="PRICE" type="PriceType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="PriceSoap">

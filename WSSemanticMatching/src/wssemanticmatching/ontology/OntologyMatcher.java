@@ -70,8 +70,9 @@ public class OntologyMatcher {
 
     private OntologyResult matching(OWLClass a, OWLClass b) { //a=cl1,b=cl2
 
-        /* if  (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual())== true){
-         return "Exact";  // TODO need to solve isssue
+         /*if  (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual())== true){
+         return OntologyResult.Exact;  
+         // TODO need to solve isssue
          }else*/ if (reasoner.isSubClassOf(b, a)) {
             return OntologyResult.PlugIn;
         } else if (reasoner.isSubClassOf(a, b)) {

@@ -4,7 +4,7 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:33:50 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/books.owl#Author"/></xsd:annotation><xsd:element name="Author" type="AuthorType"/><xsd:simpleType name="AuthorType" sawsdl:modelReference="http://127.0.0.1/ontology/books.owl#Author"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_AUTHORResponse">
-    <wsdl:part name="_AUTHOR" type="AuthorType">
+    <wsdl:part name="AUTHOR" type="AuthorType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_AUTHORRequest">
