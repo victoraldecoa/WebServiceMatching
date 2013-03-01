@@ -4,11 +4,11 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:33:06 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/travel.owl#Activity"/><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/travel.owl#Farmland"/></xsd:annotation><xsd:element name="Activity" type="ActivityType"/><xsd:element name="Farmland" type="FarmlandType"/><xsd:simpleType name="ActivityType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#Activity"><xsd:restriction base="xsd:string"/></xsd:simpleType><xsd:simpleType name="FarmlandType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#Farmland"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_FARMLANDRequest">
-    <wsdl:part name="_ACTIVITY" type="ActivityType">
+    <wsdl:part name="ACTIVITY" type="ActivityType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_FARMLANDResponse">
-    <wsdl:part name="_FARMLAND" type="FarmlandType">
+    <wsdl:part name="FARMLAND" type="FarmlandType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="ActivityFarmlandSoap">

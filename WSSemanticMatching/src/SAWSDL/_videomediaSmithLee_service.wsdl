@@ -6,7 +6,7 @@
   <wsdl:message name="get_VIDEOMEDIARequest">
   </wsdl:message>
   <wsdl:message name="get_VIDEOMEDIAResponse">
-    <wsdl:part name="_VIDEOMEDIA" type="VideoMediaType">
+    <wsdl:part name="VIDEOMEDIA" type="VideoMediaType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="VideomediaSoap">
