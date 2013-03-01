@@ -69,7 +69,7 @@ public class OntologyMatcher {
     }
 
     private OntologyResult matching(OWLClass a, OWLClass b) { //a=cl1,b=cl2
-        if (a.toString().equals(b.toString())) {
+        if (reasoner.isEquivalentClass(a, b)) {
             return OntologyResult.Exact;
         } else if (reasoner.isSubClassOf(b, a)) {
             return OntologyResult.PlugIn;
