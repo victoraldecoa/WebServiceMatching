@@ -6,9 +6,9 @@
   <wsdl:message name="get_COMEDYFILM_FANTACYFILMRequest">
   </wsdl:message>
   <wsdl:message name="get_COMEDYFILM_FANTACYFILMResponse">
-    <wsdl:part name="_COMEDYFILM" type="ComedyFilmType">
+    <wsdl:part name="COMEDYFILM" type="ComedyFilmType">
     </wsdl:part>
-    <wsdl:part name="_FANTACYFILM" type="FantacyFilmType">
+    <wsdl:part name="FANTACYFILM" type="FantacyFilmType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="ComedyfilmfantacyfilmSoap">

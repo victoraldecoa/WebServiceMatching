@@ -6,9 +6,9 @@
   <wsdl:message name="getResponse">
   </wsdl:message>
   <wsdl:message name="getRequest">
-    <wsdl:part name="_GEOPOLITICAL-ENTITY" type="Geopolitical-EntityType">
+    <wsdl:part name="GEOPOLITICAL-ENTITY" type="Geopolitical-EntityType">
     </wsdl:part>
-    <wsdl:part name="_GEOPOLITICAL-ENTITY1" type="Geopolitical-EntityType">
+    <wsdl:part name="GEOPOLITICAL-ENTITY1" type="Geopolitical-EntityType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="Geopolitical-entitygeopolitical-entitySoap">

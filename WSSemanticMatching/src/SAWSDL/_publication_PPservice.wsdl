@@ -4,7 +4,7 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:36:17 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/SUMO.owl#Publication"/></xsd:annotation><xsd:element name="Publication" sawsdl:liftingSchemaMapping="http://127.0.0.1/services/liftingSchemaMappings/_publication_PPservice_Publication_liftingSchemaMapping.xslt" type="PublicationType"/><xsd:simpleType name="PublicationType" sawsdl:modelReference="http://127.0.0.1/ontology/SUMO.owl#Publication"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_PUBLICATIONResponse">
-    <wsdl:part name="_PUBLICATION" type="PublicationType">
+    <wsdl:part name="PUBLICATION" type="PublicationType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_PUBLICATIONRequest">

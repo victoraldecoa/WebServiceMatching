@@ -6,13 +6,13 @@
   <wsdl:message name="get_DIGITAL_STANDARD_PRICE_PRICE1Request">
   </wsdl:message>
   <wsdl:message name="get_DIGITAL_STANDARD_PRICE_PRICE1Response">
-    <wsdl:part name="_DIGITAL" type="DigitalType">
+    <wsdl:part name="DIGITAL" type="DigitalType">
     </wsdl:part>
-    <wsdl:part name="_STANDARD" type="StandardType">
+    <wsdl:part name="STANDARD" type="StandardType">
     </wsdl:part>
-    <wsdl:part name="_PRICE" type="PriceType">
+    <wsdl:part name="PRICE" type="PriceType">
     </wsdl:part>
-    <wsdl:part name="_PRICE1" type="PriceType">
+    <wsdl:part name="PRICE1" type="PriceType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="DigitalstandardpricepriceSoap">

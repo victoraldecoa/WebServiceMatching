@@ -6,11 +6,11 @@
   <wsdl:message name="get_CAMERA_TAXEDPRICE_DUTYTAXRequest">
   </wsdl:message>
   <wsdl:message name="get_CAMERA_TAXEDPRICE_DUTYTAXResponse">
-    <wsdl:part name="_CAMERA" type="CameraType">
+    <wsdl:part name="CAMERA" type="CameraType">
     </wsdl:part>
-    <wsdl:part name="_TAXEDPRICE" type="TaxedPriceType">
+    <wsdl:part name="TAXEDPRICE" type="TaxedPriceType">
     </wsdl:part>
-    <wsdl:part name="_DUTYTAX" type="DutyTaxType">
+    <wsdl:part name="DUTYTAX" type="DutyTaxType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CamerataxedpricedutytaxSoap">

@@ -8,9 +8,9 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_PRICERequest">
-    <wsdl:part name="_1PERSONBICYCLE" type="OnePersonBicycleType">
+    <wsdl:part name="1PERSONBICYCLE" type="OnePersonBicycleType">
     </wsdl:part>
-    <wsdl:part name="_4WHEELEDCAR" type="FourWheeledCarType">
+    <wsdl:part name="4WHEELEDCAR" type="FourWheeledCarType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="4wheeledcar1personbicyclePriceSoap">

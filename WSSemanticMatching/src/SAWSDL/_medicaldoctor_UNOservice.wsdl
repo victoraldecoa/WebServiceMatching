@@ -4,7 +4,7 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:37:03 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/Mid-level-ontology.owl#MedicalDoctor"/></xsd:annotation><xsd:element name="MedicalDoctor" type="MedicalDoctorType"/><xsd:simpleType name="MedicalDoctorType" sawsdl:modelReference="http://127.0.0.1/ontology/Mid-level-ontology.owl#MedicalDoctor"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_MEDICALDOCTORResponse">
-    <wsdl:part name="_MEDICALDOCTOR" type="MedicalDoctorType">
+    <wsdl:part name="MEDICALDOCTOR" type="MedicalDoctorType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_MEDICALDOCTORRequest">
