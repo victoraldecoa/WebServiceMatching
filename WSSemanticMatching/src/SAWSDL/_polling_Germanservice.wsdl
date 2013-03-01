@@ -6,7 +6,7 @@
   <wsdl:message name="get_POLLINGRequest">
   </wsdl:message>
   <wsdl:message name="get_POLLINGResponse">
-    <wsdl:part name="_POLLING" type="PollingType">
+    <wsdl:part name="POLLING" type="PollingType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="PollingSoap">

@@ -6,7 +6,7 @@
   <wsdl:message name="get_LECTURER-IN-ACADEMIARequest">
   </wsdl:message>
   <wsdl:message name="get_LECTURER-IN-ACADEMIAResponse">
-    <wsdl:part name="_LECTURER-IN-ACADEMIA" type="Lecturer-In-AcademiaType">
+    <wsdl:part name="LECTURER-IN-ACADEMIA" type="Lecturer-In-AcademiaType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="Lecturer-in-academiaSoap">

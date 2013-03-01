@@ -4,7 +4,7 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:33:13 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/Mid-level-ontology.owl#SkilledOccupation"/></xsd:annotation><xsd:element name="SkilledOccupation" type="SkilledOccupationType"/><xsd:simpleType name="SkilledOccupationType" sawsdl:modelReference="http://127.0.0.1/ontology/Mid-level-ontology.owl#SkilledOccupation"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_SKILLEDOCCUPATIONResponse">
-    <wsdl:part name="_SKILLEDOCCUPATION" type="SkilledOccupationType">
+    <wsdl:part name="SKILLEDOCCUPATION" type="SkilledOccupationType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_SKILLEDOCCUPATIONRequest">

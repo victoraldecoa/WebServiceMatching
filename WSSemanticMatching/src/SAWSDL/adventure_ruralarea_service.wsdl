@@ -4,11 +4,11 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:33:06 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/travel.owl#Adventure"/><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/travel.owl#RuralArea"/></xsd:annotation><xsd:element name="Adventure" type="AdventureType"/><xsd:element name="RuralArea" type="RuralAreaType"/><xsd:simpleType name="RuralAreaType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#RuralArea"><xsd:restriction base="xsd:string"><xsd:enumeration value="CapeYork"/><xsd:enumeration value="Woomera"/></xsd:restriction></xsd:simpleType><xsd:simpleType name="AdventureType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#Adventure"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_RURALAREARequest">
-    <wsdl:part name="_ADVENTURE" type="AdventureType">
+    <wsdl:part name="ADVENTURE" type="AdventureType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_RURALAREAResponse">
-    <wsdl:part name="_RURALAREA" type="RuralAreaType">
+    <wsdl:part name="RURALAREA" type="RuralAreaType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="AdventureRuralareaSoap">

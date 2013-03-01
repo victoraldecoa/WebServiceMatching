@@ -6,7 +6,7 @@
   <wsdl:message name="get_PERSONRequest">
   </wsdl:message>
   <wsdl:message name="get_PERSONResponse">
-    <wsdl:part name="_PERSON" type="PersonType">
+    <wsdl:part name="PERSON" type="PersonType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="PersonSoap">

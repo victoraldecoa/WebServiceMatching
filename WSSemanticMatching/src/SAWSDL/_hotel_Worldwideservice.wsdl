@@ -6,7 +6,7 @@
   <wsdl:message name="get_HOTELRequest">
   </wsdl:message>
   <wsdl:message name="get_HOTELResponse">
-    <wsdl:part name="_HOTEL" type="HotelType">
+    <wsdl:part name="HOTEL" type="HotelType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="HotelSoap">

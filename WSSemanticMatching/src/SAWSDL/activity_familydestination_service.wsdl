@@ -4,11 +4,11 @@
     <xsd:schema version="OWLS2WSDL Wed Sep 22 14:33:06 CEST 2010" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:annotation><xsd:documentation source="Translation (OWL2XSD-SimpleType) of http://127.0.0.1/ontology/travel.owl#Activity"/><xsd:documentation source="Translation (OWL2XSD-ComplexType) of http://127.0.0.1/ontology/travel.owl#FamilyDestination"/></xsd:annotation><xsd:element name="FamilyDestination" sawsdl:liftingSchemaMapping="http://127.0.0.1/services/liftingSchemaMappings/activity_familydestination_service_FamilyDestination_liftingSchemaMapping.xslt" type="FamilyDestinationType"/><xsd:element name="Activity" type="ActivityType"/><xsd:complexType name="FamilyDestinationType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#FamilyDestination"><xsd:sequence><xsd:element minOccurs="2" name="hasActivity" type="ActivityType"/><xsd:element name="hasAccommodation" type="Accommodation"/></xsd:sequence></xsd:complexType><xsd:simpleType name="ActivityType" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#Activity"><xsd:restriction base="xsd:string"/></xsd:simpleType><xsd:simpleType name="Accommodation" sawsdl:modelReference="http://127.0.0.1/ontology/travel.owl#Accommodation"><xsd:restriction base="xsd:string"/></xsd:simpleType></xsd:schema>
   </wsdl:types>
   <wsdl:message name="get_FAMILYDESTINATIONRequest">
-    <wsdl:part name="_ACTIVITY" type="ActivityType">
+    <wsdl:part name="ACTIVITY" type="ActivityType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_FAMILYDESTINATIONResponse">
-    <wsdl:part name="_FAMILYDESTINATION" type="FamilyDestinationType">
+    <wsdl:part name="FAMILYDESTINATION" type="FamilyDestinationType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="ActivityFamilydestinationSoap">

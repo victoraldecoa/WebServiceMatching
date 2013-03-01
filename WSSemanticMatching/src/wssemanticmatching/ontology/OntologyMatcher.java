@@ -69,7 +69,6 @@ public class OntologyMatcher {
     }
 
     private OntologyResult matching(OWLClass a, OWLClass b) { //a=cl1,b=cl2
-
         if (a.isOWLIndividual() && b.isOWLIndividual()) {
             if (reasoner.isSameAs(b.asOWLIndividual(), a.asOWLIndividual()) == true) {
                 return OntologyResult.Exact;  // TODO need to solve isssue

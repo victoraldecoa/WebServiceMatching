@@ -6,9 +6,9 @@
   <wsdl:message name="get_BANKER_ADDRESSRequest">
   </wsdl:message>
   <wsdl:message name="get_BANKER_ADDRESSResponse">
-    <wsdl:part name="_BANKER" type="BankerType">
+    <wsdl:part name="BANKER" type="BankerType">
     </wsdl:part>
-    <wsdl:part name="_ADDRESS" type="AddressType">
+    <wsdl:part name="ADDRESS" type="AddressType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="BankeraddressSoap">

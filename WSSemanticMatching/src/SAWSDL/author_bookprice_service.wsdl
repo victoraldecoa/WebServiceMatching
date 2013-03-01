@@ -10,7 +10,7 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="get_BOOK_PRICERequest">
-    <wsdl:part name="_AUTHOR" type="AuthorType">
+    <wsdl:part name="AUTHOR" type="AuthorType">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="AuthorBookpriceSoap">
