@@ -8,18 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import org.ow2.easywsdl.schema.api.ComplexType;
-import org.ow2.easywsdl.schema.api.Element;
-import org.ow2.easywsdl.schema.api.Sequence;
-import org.ow2.easywsdl.schema.api.SimpleType;
-import org.ow2.easywsdl.schema.api.Type;
 import org.ow2.easywsdl.wsdl.WSDLFactory;
 import org.ow2.easywsdl.wsdl.api.BindingOperation;
 import org.ow2.easywsdl.wsdl.api.Description;
@@ -37,7 +26,7 @@ public class WSSemanticMatching {
 
     public static void testOntologyMatcher() {
         OntologyMatcher ontologyMatcher = OntologyMatcher.getInstance();
-        System.out.println(ontologyMatcher.getScore("Christian", "Anglican"));
+        System.out.println(ontologyMatcher.getScore("Anglican", "Christian"));
     }
 
     /**
