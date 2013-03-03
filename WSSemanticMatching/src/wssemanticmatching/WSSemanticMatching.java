@@ -33,7 +33,7 @@ public class WSSemanticMatching {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, Exception {
-        testOntologyMatcher();
+        //testOntologyMatcher();
 
         ArrayList<String> iElements = new ArrayList<>();
         ArrayList<String> oElements = new ArrayList<>();

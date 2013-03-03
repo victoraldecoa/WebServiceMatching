@@ -80,8 +80,6 @@ public class OntologyMatcher {
             return OntologyResult.PlugIn;
         } else if (reasoner.isSubClassOf(a, b)) {
             return OntologyResult.Subsumption;
-        } else if (reasoner.isEquivalentClass(a, b)) {
-            return OntologyResult.Subsumption;
         }
 
         // TODO we should also do for has relation ship
